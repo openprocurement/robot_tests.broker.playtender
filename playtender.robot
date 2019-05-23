@@ -69,7 +69,6 @@ Login
 Створити об'єкт МП
     [Arguments]    ${username}    ${tender_data}
     Log    ${tender_data}
-    Set Global Variable    ${TENDER_INIT_DATA_LIST}    ${tender_data}
 
     ${title}=    Get From Dictionary    ${tender_data.data}    title
     ${title_ru}=    Get From Dictionary    ${tender_data.data}    title_ru
@@ -163,7 +162,6 @@ Login
     ...  AND  Run Keyword If  '${name_test}' == '360'  Go To  https://test-cbd2.playtender.com.ua/utils/accelerator?v=360
     ...  AND  Sleep  1
 
-#    Run Keyword If  '${name_test}' == '180'  Go To  https://test-cbd2.playtender.com.ua/utils/accelerator?v=360
    ${decisionDate}=    Get from dictionary    ${tender_data.data.decisions[0]}    decisionDate
     ${decisionID}=    Get from dictionary    ${tender_data.data.decisions[0]}    decisionID
     Натиснути    id=cabinet
@@ -512,7 +510,6 @@ Login
     Натиснути    id=auction-0-update-btn
     Clear Element Text    id=lotauctions-auctionperiod_startdate
     Execute JavaScript  $('#lotauctions-auctionperiod_startdate').val('${field_value}');
-#    Input text    id=lotauctions-auctionperiod_startdate    ${field_value}
     Натиснути    id=save-btn
     Sleep    2
     Capture Page Screenshot
@@ -598,7 +595,6 @@ Login
   Натиснути    id=auction-0-update-btn
 
   Execute JavaScript  $('#lotauctions-auctionperiod_startdate').val('${auction.auctionPeriod.startDate}');
-#  Input Text  id=lotauctions-auctionperiod_startdate    ${auction.auctionPeriod.startDate}
   ${value_amount}=    Convert To String    ${auction.value.amount}
   Input Text    id=lotauctions-value_amount    ${value_amount}
   ${value_valueaddedtaxincluded}=    Convert To String    ${auction.value.valueAddedTaxIncluded}
@@ -607,11 +603,6 @@ Login
   Input Text    id=lotauctions-minimalstep_amount    ${minimalStep}
   ${guarantee_amount}=    Convert To String    ${auction.guarantee.amount}
   Input Text    id=lotauctions-guarantee_amount    ${guarantee_amount}
-  ${procurementTypeExist}=  Run Keyword And Return Status   Dictionary Should Contain Key  ${auction}  registrationFee.amount
-  ${registrationFee}=  Run Keyword If  ${procurementTypeExist} == True   Convert To String    ${auction.registrationFee.amount}
-  ...  ELSE  Convert To String    0
-#cat#cat#cat  ${registrationFee}=  Convert To String    ${auction.registrationFee.amount}
-  Run Keyword And Ignore Error    Input Text    id=lotauctions-registrationfee_amount    ${registrationFee}
 
   Input text    id=lotauctions-bankaccount_description    ${auction.bankAccount.bankName}
   Input text    id=lotauctions-bankaccount_bankname    ${auction.bankAccount.description}
@@ -924,16 +915,16 @@ Login
     ${return_value}=    Run keyword if    '${field_name}' == 'quantity'    Convert to number    ${return_value}
     ...   ELSE    Set variable    ${return_value}
     [Return]    ${return_value}
-#cat_new
+
 Отримати значення поля items[${index}].unit.name тендеру
     ${return_value}=    Отримати текст    id=items-${index}-unit_name
     [Return]    ${return_value}
-#cat_new
+
 Отримати значення поля items[${index}].quantity тендеру
     ${return_value}=    Отримати текст    id=items-${index}-quantity
     ${return_value}=    Convert to number    ${return_value}
     [Return]    ${return_value}
-#cat_new
+
 Отримати значення поля auctionPeriod.startDate тендеру
     ${return_value}=    Отримати текст    id=auction-auctionPeriod_startDate
     ${return_value}=    convert_date_to_iso    ${return_value}
@@ -944,13 +935,11 @@ Login
     ${return_value}=    convert_date_to_iso    ${return_value}
     [Return]    ${return_value}
 
-#cat //span[@id='auction-auctionPeriod_startDate']
 Отримати значення поля items[${index}].unit.name тендеру_old
     ${return_value}=    Отримати текст    id=items[${index}].unit_name
     [Return]    ${return_value}
 
 Отримати значення поля items[${index}].description тендеру
-#cat_new    ${return_value}=    Отримати текст    id=items[${index}].description
     ${return_value}=    Отримати текст    id=items-${index}-description
     [Return]    ${return_value}
 
@@ -1170,8 +1159,6 @@ playtender.Отримати інформацію з пропозиції шод�
 Встановити дату підписання угоди
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}    ${field_value}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-#    Натиснути    jQuery=.bids-n-link:nth(${contract_num})
-#    Натиснути    id=bids[0]-link
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
     Input text    id=contracts-datesigned    ${field_value}
@@ -1181,8 +1168,6 @@ playtender.Отримати інформацію з пропозиції шод�
 Завантажити угоду до тендера
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}    ${filepath}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-#    Натиснути    jQuery=.bids-n-link:nth(${contract_num})
-#    Натиснути    id=bids[0]-link
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=upload-contract-link
     ${filepath}=    get_upload_file_path
@@ -1193,8 +1178,6 @@ playtender.Отримати інформацію з пропозиції шод�
 Підтвердити підписання контракту
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-#    Натиснути    jQuery=.bids-n-link:nth(${contract_num})
-#    Натиснути    id=bids[0]-link
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
     Натиснути    id=contract-signed-submit
@@ -1203,7 +1186,6 @@ playtender.Отримати інформацію з пропозиції шод�
 Завантажити протокол скасування в контракт
     [Arguments]    ${username}    ${tender_uaid}    ${filepath}    ${contract_num}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-#    Натиснути    jQuery=.bids-n-link:nth(${contract_num})
     Натиснути    id=bids[0]-link
     Натиснути    id=contract-upload-cancellation
     ${filepath}    get_upload_file_path
@@ -1214,7 +1196,6 @@ playtender.Отримати інформацію з пропозиції шод�
 Скасувати контракт
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-#    Натиснути    jQuery=.bids-n-link:nth(${contract_num})
     Натиснути    id=bids[0]-link
     Натиснути    id=confirm-declining-contract
     Sleep    3
@@ -1302,7 +1283,6 @@ playtender.Отримати інформацію з пропозиції шод�
     Sleep    3
 
 Отримати значення поля awards[0].status тендеру
-#    ${return_value}=    Отримати текст    id=auction-status
     ${return_value}=    Отримати текст    jQuery=.award-accordion:nth(0) h3 .is_debug
     [Return]    ${return_value}
 
