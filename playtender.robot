@@ -1161,9 +1161,9 @@ playtender.Отримати інформацію з пропозиції шод�
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
-    Input text    id=contracts-datesigned    ${field_value}
+    InputDateToDatePickerByJqueryLocator  \#contracts-datesigned  ${field_value}
     Натиснути    id=contract-signed-submit
-    Sleep    3
+    WaitSuccessFlashMessage
 
 Завантажити угоду до тендера
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}    ${filepath}
@@ -1294,3 +1294,15 @@ playtender.Отримати інформацію з пропозиції шод�
     ${return_value}=    Отримати текст    jQuery=.award-accordion:nth(0) h3 .is_debug
     [Return]    ${return_value}
 
+InputDateToDatePickerByJqueryLocator
+    [Arguments]    ${locator}    ${date}
+    Execute JavaScript  try {
+    ...                    $('${locator}').val(moment('${date}').format('YYYY-MM-DD HH:mm'));
+    ...                 } catch(e) {
+    ...                    $('${locator}').val('${date}').blur();
+    ...                    setTimeout(function () { $('${locator}').focus(); }, 500);
+    ...                 }
+
+WaitSuccessFlashMessage
+    sleep  3
+    wait until page contains element  css=.app-flash-message.alert-success  60
