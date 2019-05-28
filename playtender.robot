@@ -1226,9 +1226,10 @@ playtender.Отримати інформацію з пропозиції шод�
     [Arguments]    ${username}    ${contract_uaid}    ${dateMet}    ${milestone_index}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${contract_uaid}
     Натиснути    id=bids[0]-link
-    Input text    id=milestones-datemet    ${dateMet}
+    Execute JavaScript  $('#milestones-datemet').val('${dateMet}');
     Натиснути    id=confirm-milestone-btn
     Sleep    3
+    wait until page contains  Дату успішно відправлено  60
 
 Завантажити наказ про завершення приватизації
     [Arguments]    ${username}    ${contract_uaid}    ${filepath}
@@ -1237,23 +1238,26 @@ playtender.Отримати інформацію з пропозиції шод�
     Select from list by value    id=milestones-type    approvalProtocol
     Choose file    id=files-file    ${filepath}
     Натиснути    id=upload-milestone-document-btn
-    Sleep    59
+    Sleep    3
+    wait until page contains  Документ успішно завантажено  60
 
 Вказати дату прийняття наказу
     [Arguments]    ${username}    ${contract_uaid}    ${dateMet}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${contract_uaid}
     Натиснути    id=bids[0]-link
-    Input text    id=milestones-datemet    ${dateMet}
+    Execute JavaScript  $('#milestones-datemet').val('${dateMet}');
     Натиснути    id=confirm-milestone-btn
     Sleep    3
+    wait until page contains  Дату успішно відправлено  60
 
 Вказати дату виконання умов контракту
     [Arguments]    ${username}    ${contract_uaid}    ${dateMet}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${contract_uaid}
     Натиснути    id=bids[0]-link
-    Input text    id=milestones-datemet    ${dateMet}
+    Execute JavaScript  $('#milestones-datemet').val('${dateMet}');
     Натиснути    id=confirm-milestone-btn
     Sleep    3
+    wait until page contains  Дату успішно відправлено  60
 
 Підтвердити відсутність оплати
     [Arguments]    ${username}    ${contract_uaid}    ${milestone_index}
@@ -1261,6 +1265,7 @@ playtender.Отримати інформацію з пропозиції шод�
     Натиснути    id=bids[0]-link
     Натиснути    id=decline-milestone-btn
     Sleep    3
+    wait until page contains  Статус виконання вимоги  60
 
 Підтвердити відсутність наказу про приватизацію
     [Arguments]    ${username}    ${contract_uaid}    ${filepath}
@@ -1270,10 +1275,12 @@ playtender.Отримати інформацію з пропозиції шод�
     Choose file    id=files-file    ${filepath}
     Натиснути    id=upload-milestone-document-btn
     Sleep    3
+    wait until page contains  Документ успішно завантажено  60
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${contract_uaid}
     Натиснути    id=bids[0]-link
     Натиснути    id=decline-milestone-btn
     Sleep    3
+    wait until page contains  Статус виконання вимоги  60
 
 Підтвердити невиконання умов приватизації
     [Arguments]    ${username}    ${contract_uaid}
@@ -1281,6 +1288,7 @@ playtender.Отримати інформацію з пропозиції шод�
     Натиснути    id=bids[0]-link
     Натиснути    id=decline-milestone-btn
     Sleep    3
+    wait until page contains  Статус виконання вимоги  60
 
 Отримати значення поля awards[0].status тендеру
     ${return_value}=    Отримати текст    jQuery=.award-accordion:nth(0) h3 .is_debug
