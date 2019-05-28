@@ -1186,7 +1186,7 @@ playtender.Отримати інформацію з пропозиції шод�
 Завантажити протокол скасування в контракт
     [Arguments]    ${username}    ${tender_uaid}    ${filepath}    ${contract_num}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-    Натиснути    id=bids[0]-link
+    Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-upload-cancellation
     ${filepath}    get_upload_file_path
     Choose file    id=files-file    ${filepath}
@@ -1196,7 +1196,7 @@ playtender.Отримати інформацію з пропозиції шод�
 Скасувати контракт
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
-    Натиснути    id=bids[0]-link
+    Натиснути    css=.bids-0-contract-link
     Натиснути    id=confirm-declining-contract
     Sleep    3
 
