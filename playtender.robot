@@ -1299,7 +1299,7 @@ playtender.Отримати інформацію з пропозиції шод�
 InputDateToDatePickerByJqueryLocator
     [Arguments]    ${locator}    ${date}
     Execute JavaScript  try {
-    ...                    $('${locator}').val(moment('${date}').format('YYYY-MM-DD HH:mm'));
+    ...                    $('${locator}').val(moment('${date}').utcOffset("+03:00").format('YYYY-MM-DD HH:mm'));
     ...                 } catch(e) {
     ...                    $('${locator}').val('${date}').blur();
     ...                    setTimeout(function () { $('${locator}').focus(); }, 500);
