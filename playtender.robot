@@ -840,6 +840,7 @@ Login
     [Arguments]    ${username}    ${tender_uaid}
     Switch Browser  ${BROWSER_ALIAS}
     Натиснути    id=auctions-list
+    wait until page contains element  id=auctionssearch-main_search  60
     Input text    id=auctionssearch-main_search    ${tender_uaid}
     Неквапливо натиснути    id=public-search-btn
     Sleep  10
