@@ -1165,7 +1165,6 @@ playtender.Отримати інформацію з пропозиції шод�
     scrolltoelementbyjquerylocator  \#contracts-datesigned
     capture page screenshot
     Натиснути    id=contract-signed-submit
-    WaitSuccessFlashMessage
 
 Завантажити угоду до тендера
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}    ${filepath}
