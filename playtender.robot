@@ -1162,8 +1162,9 @@ playtender.Отримати інформацію з пропозиції шод�
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
     InputDateToDatePickerByJqueryLocator  \#contracts-datesigned  ${field_value}
+    scrolltoelementbyjquerylocator  \#contracts-datesigned
+    capture page screenshot
     Натиснути    id=contract-signed-submit
-    WaitSuccessFlashMessage
 
 Завантажити угоду до тендера
     [Arguments]    ${username}    ${tender_uaid}    ${contract_num}    ${filepath}
@@ -1297,11 +1298,17 @@ playtender.Отримати інформацію з пропозиції шод�
 InputDateToDatePickerByJqueryLocator
     [Arguments]    ${locator}    ${date}
     Execute JavaScript  try {
-    ...                    $('${locator}').val(moment('${date}').format('YYYY-MM-DD HH:mm'));
+    ...                    $('${locator}').val(moment('${date}').utcOffset("+03:00").format('YYYY-MM-DD HH:mm'));
     ...                 } catch(e) {
     ...                    $('${locator}').val('${date}').blur();
     ...                    setTimeout(function () { $('${locator}').focus(); }, 500);
     ...                 }
+    sleep  1
+
+ScrollToElementByJqueryLocator
+    [Arguments]    ${locator}  ${offsetTop}=100
+    execute javascript  $("html, body").animate({scrollTop: $('${locator}').offset().top - ${offsetTop}}, 0);
+    sleep  1
 
 WaitSuccessFlashMessage
     sleep  3
