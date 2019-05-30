@@ -1163,8 +1163,6 @@ playtender.Отримати інформацію з пропозиції шод�
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
     InputDateToDatePickerByJqueryLocator  \#contracts-datesigned  ${field_value}
-    scrolltoelementbyjquerylocator  \#contracts-datesigned
-    capture page screenshot
     Натиснути    id=contract-signed-submit
 
 Завантажити угоду до тендера
