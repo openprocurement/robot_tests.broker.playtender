@@ -1183,8 +1183,10 @@ playtender.Отримати інформацію з пропозиції шод�
     Run keyword    playtender.Пошук тендера по ідентифікатору    ${username}    ${tender_uaid}
     Натиснути    css=.bids-0-contract-link
     Натиснути    id=contract-signed-btn
+    sleep  1
     Натиснути    id=contract-signed-submit
-    Sleep    3
+    Sleep    1
+    waitsuccessflashmessage
 
 Завантажити протокол скасування в контракт
     [Arguments]    ${username}    ${tender_uaid}    ${filepath}    ${contract_num}
