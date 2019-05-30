@@ -839,8 +839,11 @@ Login
 Оновити сторінку з тендером
     [Arguments]    ${username}    ${tender_uaid}
     Switch Browser  ${BROWSER_ALIAS}
+    scrolltoelementbyjquerylocator  \#auctions-list  200
     Натиснути    id=auctions-list
-    wait until page contains element  id=auctionssearch-main_search  60
+    ${pass}=  run keyword and return status  wait until page contains element  id=auctionssearch-main_search  10
+    run keyword if  ${pass} == False  execute javascript  location = $('#auctions-list a').attr('href');
+    run keyword if  ${pass} == False  wait until page contains element  id=auctionssearch-main_search  10
     Input text    id=auctionssearch-main_search    ${tender_uaid}
     Неквапливо натиснути    id=public-search-btn
     Sleep  10
